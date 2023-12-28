@@ -1,14 +1,14 @@
-var express = require(express);
+var express = require("express");
 var app = express();
-var bodyParser = require(body-parser);
+var bodyParser = require("body-parser");
 
-const { WebClient } = require(slack/web-api);
+const { WebClient } = require("slack/web-api");
 
-const { createEventAdapter } = require(slack/events-api);
+const { createEventAdapter } = require("slack/events-api");
 
-const axios = require(axios);
+const axios = require("axios");
 
-require(dotenv).config();
+require("dotenv").config();
 
 const port = process.env.PORT || 3000;
 

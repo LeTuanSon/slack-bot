@@ -14,6 +14,8 @@ const apiKey = process.env.API_KEY ;
 
 const slackEvents = createEventAdapter(slackSigningSecret);
 
+const slackToken = process.env.SLACK_SIGNING_SECRET;
+
 const slackClient = new WebClient(slackToken);
 
 async function translate (text, form, to) {
@@ -74,7 +76,7 @@ async function translate (text, form, to) {
   
               const textVi = await translate(mess, 'ja','vi')
   
-              await slackClient.chat.postMessage({ channel: event.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: event.event_ts })
+              await slackClient.chat.postMessage({ channel: event.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: event.event_ts, challenge: event.bot_id.challenge })
   
           } catch (error) {
   

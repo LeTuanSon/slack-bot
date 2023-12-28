@@ -1,3 +1,6 @@
+var express = require('express');
+var app = express();
+
 const { WebClient } = require(slack/web-api);
 
 const { createEventAdapter } = require(slack/events-api);
@@ -17,6 +20,11 @@ const slackEvents = createEventAdapter(slackSigningSecret);
 const slackToken = process.env.SLACK_BOT_TOKEN;
 
 const slackClient = new WebClient(slackToken);
+
+app.post('/translate', function (req, res) {
+  const { challenge } = req.body;
+  return res.send({ challenge });
+});
 
 async function translate (text, form, to) {
 

@@ -1,6 +1,6 @@
-var express = require('express');
+var express = require(express);
 var app = express();
-var bodyParser = require('body-parser');
+var bodyParser = require(body-parser);
 
 const { WebClient } = require(slack/web-api);
 
@@ -22,12 +22,12 @@ const slackToken = process.env.SLACK_BOT_TOKEN;
 
 const slackClient = new WebClient(slackToken);
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.post('/translate', function (req, res) {
+app.post('/', function (req, res) {
   const { challenge } = req.body;
-  return res.send({ challenge });
+  res.send({ challenge });
 });
 
 async function translate (text, form, to) {

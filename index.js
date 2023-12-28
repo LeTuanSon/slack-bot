@@ -14,7 +14,7 @@ const apiKey = process.env.API_KEY ;
 
 const slackEvents = createEventAdapter(slackSigningSecret);
 
-const slackToken = process.env.SLACK_SIGNING_SECRET;
+const slackToken = process.env.SLACK_BOT_TOKEN;
 
 const slackClient = new WebClient(slackToken);
 

@@ -1,12 +1,12 @@
-var express = require("express");
+import express from "express";
 var app = express();
-var bodyParser = require("body-parser");
+import { urlencoded, json } from "body-parser";
 
-const { WebClient } = require("slack/web-api");
+import { WebClient } from "slack/web-api";
 
-const { createEventAdapter } = require("slack/events-api");
+import { createEventAdapter } from "slack/events-api";
 
-const axios = require("axios");
+import { request } from "axios";
 
 require("dotenv").config();
 
@@ -22,8 +22,8 @@ const slackToken = process.env.SLACK_BOT_TOKEN;
 
 const slackClient = new WebClient(slackToken);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: true }));
+app.use(json());
 
 app.post('/', function (req, res) {
   const { challenge } = req.body;
@@ -62,7 +62,7 @@ async function translate (text, form, to) {
   
     };
   
-    return await axios.request(options).then(function (response) {
+    return await request(options).then(function (response) {
   
       return response.data.data.translations[0].translatedText;
   

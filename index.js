@@ -22,7 +22,6 @@ const slackToken = process.env.SLACK_BOT_TOKEN;
 const slackClient = new WebClient(slackToken);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(json());
 
 app.post('/', function (req, res) {
   const { challenge } = req.body;

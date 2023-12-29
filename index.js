@@ -22,32 +22,8 @@ const bolt = new App({
   token: slackToken
 });
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
 app.post('/slack/events', function (req, res) {
   const { challenge } = req.body;
-
-  // bolt.message('翻訳テスト', async ({ message, client, logger }) => {
-  //   console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-  //   if (message.subtype !== undefined
-  //     || message.subtype !== 'bot_message'
-  //     || message.subtype !== 'file_share'
-  //     || message.subtype !== 'thread_broadcast') {
-  //       try {
-  //           const mess = message.text
-  //           const textEn = await translate(mess, 'ja','en')
-  //           const textVi = await translate(mess, 'ja','vi')
-  //           await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
-  //       } catch (error) {
-  //           logger.error(error);
-  //       }      
-  //   }
-  
-  // });
 
   res.send({ challenge });
 });
@@ -104,7 +80,7 @@ async function translate (text, form, to) {
   
   }
 
-  bolt.message('翻訳テスト', async ({ message, client, logger }) => {
+  bolt.message(async ({ message, client, logger }) => {
     console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     if (message.subtype !== undefined
       || message.subtype !== 'bot_message'

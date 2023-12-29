@@ -29,6 +29,8 @@ const bolt = new App({
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/', function (req, res) {
+  const { challenge } = req.body;
+
   bolt.message('翻訳テスト', async ({ message, client, logger }) => {
     console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     if (message.subtype !== undefined
@@ -47,7 +49,7 @@ app.post('/', function (req, res) {
   
   });
 
-  res.sendStatus(200);
+  res.send({ challenge });
 });
 
 // app.get('/status', (request, response) => {

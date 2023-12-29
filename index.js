@@ -29,27 +29,25 @@ const bolt = new App({
 // app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/', function (req, res) {
-  // bolt.message('翻訳テスト', async ({ message, client, logger }) => {
-  //   console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-  //   if (message.subtype !== undefined
-  //     || message.subtype !== 'bot_message'
-  //     || message.subtype !== 'file_share'
-  //     || message.subtype !== 'thread_broadcast') {
-  //       try {
-  //           const mess = message.text
-  //           const textEn = await translate(mess, 'ja','en')
-  //           const textVi = await translate(mess, 'ja','vi')
-  //           await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
-  //       } catch (error) {
-  //           logger.error(error);
-  //       }      
-  //   }
+  bolt.message('翻訳テスト', async ({ message, client, logger }) => {
+    console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    if (message.subtype !== undefined
+      || message.subtype !== 'bot_message'
+      || message.subtype !== 'file_share'
+      || message.subtype !== 'thread_broadcast') {
+        try {
+            const mess = message.text
+            const textEn = await translate(mess, 'ja','en')
+            const textVi = await translate(mess, 'ja','vi')
+            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
+        } catch (error) {
+            logger.error(error);
+        }      
+    }
   
-  // });
+  });
 
-  const { challenge } = req.body;
-
-  res.send({ challenge });
+  res.sendStatus(200);
 });
 
 // app.get('/status', (request, response) => {

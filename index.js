@@ -23,10 +23,10 @@ const slackClient = new WebClient(slackToken);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/', function (req, res) {
-  const { challenge } = req.body;
-  res.send({ challenge });
-});
+// app.post('/', function (req, res) {
+//   const { challenge } = req.body;
+//   res.send({ challenge });
+// });
 
 async function translate (text, form, to) {
 

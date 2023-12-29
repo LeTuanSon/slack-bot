@@ -20,7 +20,8 @@ const slackClient = new WebClient(slackToken);
 const bolt = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   token: slackToken,
-  socketMode: true
+  socketMode: true,
+  appToken: "xapp-1-A06BKNRE2H4-6416920696401-539d26a2aedda810cb3ee8955b820ad227309d4541df1a501c20d748fc183708"
 });
 
 // app.listen(port, () => {

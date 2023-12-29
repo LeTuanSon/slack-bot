@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 var app = express();
 const { WebClient } = require('@slack/web-api');
 
-const { createEventAdapter } = require('@slack/events-api');
+const { slackBolt } = require('@slack/bolt');
 
 const axios = require('axios');
 
@@ -11,21 +11,39 @@ require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 
-const slackSigningSecret = process.env.SLACK_SIGNING_SECRET;
-
 const apiKey = process.env.API_KEY ;
-
-const slackEvents = createEventAdapter(slackSigningSecret);
 
 const slackToken = process.env.SLACK_BOT_TOKEN;
 
 const slackClient = new WebClient(slackToken);
 
+const bolt = new slackBolt({
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+  token: slackToken,
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.post('/', function (req, res) {
-//   const { challenge } = req.body;
-//   res.send({ challenge });
+//   const { text, channel, event_ts } = req.body;
+//   async () => {
+//     try {
+
+//         const mess = text
+
+//         const textEn = await translate(mess, 'ja','en')
+
+//         const textVi = await translate(mess, 'ja','vi')
+
+//         await slackClient.chat.postMessage({ channel: channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: event_ts })
+
+//     } catch (error) {
+
+//         console.log(error)
+
+//     }
+
+//   };
 // });
 
 async function translate (text, form, to) {
@@ -72,42 +90,34 @@ async function translate (text, form, to) {
   
   }
 
-  slackEvents.on('message', async (event) => {
+  bolt.message(async ({ message, client, logger }) => {
 
-    if (event.bot_id === undefined) {
-  
+    if (message.subtype === undefined
+      || message.subtype === 'bot_message'
+      || message.subtype === 'file_share'
+      || message.subtype === 'thread_broadcast') {
+
       (async () => {
-  
           try {
-  
-              const mess = event.text
+              const mess = message.text
   
               const textEn = await translate(mess, 'ja','en')
   
               const textVi = await translate(mess, 'ja','vi')
   
-              await slackClient.chat.postMessage({ channel: event.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: event.event_ts, challenge: event.bot_id.challenge })
+              await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: message.thread_ts });
   
           } catch (error) {
-  
-              console.log(error)
-  
+              logger.error(error);
           }
-  
         })();
-  
     }
   
-  });
+  });   
   
-   
+  (async () => {
+    // Start the app
+    await bolt.start(port);
   
-  slackEvents.on('error', console.error);
-  
-   
-  
-  slackEvents.start(port).then(() => {
-  
-    console.log(`Server started on port ${port}`)
-  
-  });
+    console.log('⚡️ Bolt app is running!');
+  })();

@@ -28,8 +28,25 @@ const bolt = new App({
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.post('/', function (req, res) {
-// });
+app.post('/', function (req, res) {
+  bolt.message('翻訳テスト', async ({ message, client, logger }) => {
+    console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    if (message.subtype !== undefined
+      || message.subtype !== 'bot_message'
+      || message.subtype !== 'file_share'
+      || message.subtype !== 'thread_broadcast') {
+        try {
+            const mess = message.text
+            const textEn = await translate(mess, 'ja','en')
+            const textVi = await translate(mess, 'ja','vi')
+            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
+        } catch (error) {
+            logger.error(error);
+        }      
+    }
+  
+  });
+});
 
 // app.get('/status', (request, response) => {
 //   const status = {

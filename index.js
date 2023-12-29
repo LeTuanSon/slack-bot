@@ -19,9 +19,7 @@ const slackClient = new WebClient(slackToken);
 
 const bolt = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
-  token: slackToken,
-  socketMode: true,
-  appToken: "xapp-1-A06BKNRE2H4-6427088082064-f51ff10340737a642e2c6b99ed7be7279511b3db66961c0a49dd12d8807146aa"
+  token: slackToken
 });
 
 // app.listen(port, () => {
@@ -85,7 +83,7 @@ async function translate (text, form, to) {
   
   }
 
-  bolt.message(async ({ message, client, logger }) => {
+  bolt.message('翻訳テスト', async ({ message, client, logger }) => {
     console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     if (message.subtype !== undefined
       || message.subtype !== 'bot_message'

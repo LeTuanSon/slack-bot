@@ -92,7 +92,7 @@ async function translate (text, form, to) {
   
     };
   
-    return await request(options).then(function (response) {
+    return await axios.request(options).then(function (response) {
   
       return response.data.data.translations[0].translatedText;
   

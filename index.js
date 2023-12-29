@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 var app = express();
 const { WebClient } = require('@slack/web-api');
 
-const { slackBolt } = require('@slack/bolt');
+const { App } = require('@slack/bolt');
 
 const axios = require('axios');
 
@@ -17,7 +17,7 @@ const slackToken = process.env.SLACK_BOT_TOKEN;
 
 const slackClient = new WebClient(slackToken);
 
-const bolt = new slackBolt({
+const bolt = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   token: slackToken,
 });

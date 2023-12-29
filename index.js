@@ -21,7 +21,7 @@ const bolt = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
   token: slackToken,
   socketMode: true,
-  appToken: "xapp-1-A06BKNRE2H4-6416920696401-539d26a2aedda810cb3ee8955b820ad227309d4541df1a501c20d748fc183708"
+  appToken: "xapp-1-A06BKNRE2H4-6406757520740-df0cb4867c5de0375429a2008754328963cec5d73bed9e2f44e129e1d5d7cc4e"
 });
 
 // app.listen(port, () => {

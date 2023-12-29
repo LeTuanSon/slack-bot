@@ -24,27 +24,25 @@ const bolt = new App({
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.post('/', function (req, res) {
-//   const { text, channel, event_ts } = req.body;
-//   async () => {
-//     try {
-
-//         const mess = text
-
-//         const textEn = await translate(mess, 'ja','en')
-
-//         const textVi = await translate(mess, 'ja','vi')
-
-//         await slackClient.chat.postMessage({ channel: channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: event_ts })
-
-//     } catch (error) {
-
-//         console.log(error)
-
-//     }
-
-//   };
-// });
+app.post('/', function (req, res) {
+  bolt.message(async ({ message, client, logger }) => {
+    console.log('Translate!!!!!');
+    if (message.subtype !== undefined
+      || message.subtype !== 'bot_message'
+      || message.subtype !== 'file_share'
+      || message.subtype !== 'thread_broadcast') {
+        try {
+            const mess = message.text
+            const textEn = await translate(mess, 'ja','en')
+            const textVi = await translate(mess, 'ja','vi')
+            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
+        } catch (error) {
+            logger.error(error);
+        }      
+    }
+  
+  });
+});
 
 async function translate (text, form, to) {
 
@@ -89,24 +87,6 @@ async function translate (text, form, to) {
     });
   
   }
-
-  bolt.message(async ({ message, client, logger }) => {
-    console.log('Translate!!!!!');
-    if (message.subtype !== undefined
-      || message.subtype !== 'bot_message'
-      || message.subtype !== 'file_share'
-      || message.subtype !== 'thread_broadcast') {
-        try {
-            const mess = message.text
-            const textEn = await translate(mess, 'ja','en')
-            const textVi = await translate(mess, 'ja','vi')
-            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: message.thread_ts });
-        } catch (error) {
-            logger.error(error);
-        }      
-    }
-  
-  });   
   
   (async () => {
     // Start the app

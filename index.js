@@ -44,6 +44,14 @@ app.post('/', function (req, res) {
   });
 });
 
+app.get('/status', (request, response) => {
+  const status = {
+     'Status': 'Running'
+  };
+  
+  response.send(status);
+});
+
 async function translate (text, form, to) {
 
     const encodedParams = new URLSearchParams();

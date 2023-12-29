@@ -9,7 +9,7 @@ const axios = require('axios');
 
 require('dotenv').config();
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 const apiKey = process.env.API_KEY ;
 
@@ -26,35 +26,18 @@ const bolt = new App({
 //   console.log(`Server is running on port ${port}`);
 // });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/', function (req, res) {
-  bolt.message(async ({ message, client, logger }) => {
-    console.log('Translate!!!!!');
-    if (message.subtype !== undefined
-      || message.subtype !== 'bot_message'
-      || message.subtype !== 'file_share'
-      || message.subtype !== 'thread_broadcast') {
-        try {
-            const mess = message.text
-            const textEn = await translate(mess, 'ja','en')
-            const textVi = await translate(mess, 'ja','vi')
-            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
-        } catch (error) {
-            logger.error(error);
-        }      
-    }
-  
-  });
-});
+// app.post('/', function (req, res) {
+// });
 
-app.get('/status', (request, response) => {
-  const status = {
-     'Status': 'Running'
-  };
+// app.get('/status', (request, response) => {
+//   const status = {
+//      'Status': 'Running'
+//   };
   
-  response.send(status);
-});
+//   response.send(status);
+// });
 
 async function translate (text, form, to) {
 
@@ -99,6 +82,24 @@ async function translate (text, form, to) {
     });
   
   }
+
+  bolt.message(async ({ message, client, logger }) => {
+    console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    if (message.subtype !== undefined
+      || message.subtype !== 'bot_message'
+      || message.subtype !== 'file_share'
+      || message.subtype !== 'thread_broadcast') {
+        try {
+            const mess = message.text
+            const textEn = await translate(mess, 'ja','en')
+            const textVi = await translate(mess, 'ja','vi')
+            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}` });
+        } catch (error) {
+            logger.error(error);
+        }      
+    }
+  
+  });
   
   (async () => {
     // Start the app

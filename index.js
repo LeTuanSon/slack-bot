@@ -91,26 +91,19 @@ async function translate (text, form, to) {
   }
 
   bolt.message(async ({ message, client, logger }) => {
-
-    if (message.subtype === undefined
-      || message.subtype === 'bot_message'
-      || message.subtype === 'file_share'
-      || message.subtype === 'thread_broadcast') {
-
-      (async () => {
-          try {
-              const mess = message.text
-  
-              const textEn = await translate(mess, 'ja','en')
-  
-              const textVi = await translate(mess, 'ja','vi')
-  
-              await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: message.thread_ts });
-  
-          } catch (error) {
-              logger.error(error);
-          }
-        })();
+    console.log('Translate!!!!!');
+    if (message.subtype !== undefined
+      || message.subtype !== 'bot_message'
+      || message.subtype !== 'file_share'
+      || message.subtype !== 'thread_broadcast') {
+        try {
+            const mess = message.text
+            const textEn = await translate(mess, 'ja','en')
+            const textVi = await translate(mess, 'ja','vi')
+            await client.chat.postMessage({ channel: message.channel, text: `:flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, thread_ts: message.thread_ts });
+        } catch (error) {
+            logger.error(error);
+        }      
     }
   
   });   

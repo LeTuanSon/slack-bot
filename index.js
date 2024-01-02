@@ -81,7 +81,7 @@ async function translate (text, form, to) {
   }
 
   bolt.message(async ({ message, client, logger }) => {
-    console.log('Translate!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    console.log(`++++++++++++++++++++++++++++++++++++${message.user.token}`);
     if (message.subtype !== undefined
       || message.subtype !== 'bot_message'
       || message.subtype !== 'file_share'
@@ -91,7 +91,7 @@ async function translate (text, form, to) {
             const textEn = "Test"
             // const textVi = await translate(mess, 'ja','vi')
             await client.chat.update({ 
-              token: slackToken, 
+              token: message.user.token, 
               ts: message.ts, 
               channel: message.channel, 
               text: `${mess} \n :flag-gb:: ${textEn}`, 

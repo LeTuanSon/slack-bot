@@ -7,6 +7,8 @@ const { App } = require('@slack/bolt');
 
 const axios = require('axios');
 
+const appHome = require('./appHome');
+
 require('dotenv').config();
 
 const port = process.env.PORT || 3000;

@@ -88,13 +88,13 @@ async function translate (text, form, to) {
       || message.subtype !== 'thread_broadcast') {
         try {
             const mess = message.text
-            const textEn = await translate(mess, 'ja','en')
-            const textVi = await translate(mess, 'ja','vi')
+            const textEn = "Test"
+            // const textVi = await translate(mess, 'ja','vi')
             await client.chat.update({ 
               token: slackToken, 
               ts: message.ts, 
               channel: message.channel, 
-              text: `${mess} \n :flag-gb:: ${textEn} \n:flag-vn:: ${textVi}`, 
+              text: `${mess} \n :flag-gb:: ${textEn}`, 
               as_user: true });
         } catch (error) {
             logger.error(error);

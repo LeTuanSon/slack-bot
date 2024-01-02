@@ -15,9 +15,10 @@ const updateView = async(user) => {
       type: "section",
       text: {
         type: "mrkdwn",
-        text: "*Welcome!* \nThis is a home for Stickers app. You can add small notes here!"
-      },
-      accessory: {
+        text: "*Welcome!* \nThis is a home for Demo app!"
+      }
+    },
+    {
         type: "input",
         block_id: "note02",
         label: {
@@ -58,17 +59,6 @@ const updateView = async(user) => {
             }
           ]
         }
-      
-      }
-    },
-    {
-      type: "context",
-      elements: [
-        {
-          type: "mrkdwn",
-          text: ":wave: Hey, my source code is on <https://glitch.com/edit/#!/apphome-demo-note|glitch>!"
-        }
-      ]
     },
     {
       type: "divider"

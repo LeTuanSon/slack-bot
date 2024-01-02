@@ -18,13 +18,47 @@ const updateView = async(user) => {
         text: "*Welcome!* \nThis is a home for Stickers app. You can add small notes here!"
       },
       accessory: {
-        type: "button",
-        action_id: "add_note", 
-        text: {
-          type: "plain_text",
-          text: "Add a Stickie",
-          emoji: true
+        type: "input",
+        block_id: "note02",
+        label: {
+          "type": "plain_text",
+          "text": "Color",
+        },
+        element: {
+          type: "static_select",
+          action_id: "color",
+          options: [
+            {
+              text: {
+                type: "plain_text",
+                text: "yellow"
+              },
+              value: "yellow"
+            },
+            {
+              text: {
+                type: "plain_text",
+                text: "blue"
+              },
+              value: "blue"
+            },
+            {
+              text: {
+                type: "plain_text",
+                text: "green"
+              },
+              value: "green"
+            },
+            {
+              text: {
+                type: "plain_text",
+                text: "pink"
+              },
+              value: "pink"
+            }
+          ]
         }
+      
       }
     },
     {

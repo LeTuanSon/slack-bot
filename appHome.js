@@ -20,10 +20,10 @@ const updateView = async(user) => {
     },
     {
         type: "input",
-        block_id: "note02",
+        block_id: "lang",
         label: {
           "type": "plain_text",
-          "text": "Color",
+          "text": "Language",
         },
         element: {
           type: "static_select",
@@ -32,30 +32,23 @@ const updateView = async(user) => {
             {
               text: {
                 type: "plain_text",
-                text: "yellow"
+                text: "English"
               },
-              value: "yellow"
+              value: "en"
             },
             {
               text: {
                 type: "plain_text",
-                text: "blue"
+                text: "Japanese"
               },
-              value: "blue"
+              value: "ja"
             },
             {
               text: {
                 type: "plain_text",
-                text: "green"
+                text: "Vietnamese"
               },
-              value: "green"
-            },
-            {
-              text: {
-                type: "plain_text",
-                text: "pink"
-              },
-              value: "pink"
+              value: "vi"
             }
           ]
         }

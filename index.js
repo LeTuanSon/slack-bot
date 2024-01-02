@@ -102,6 +102,23 @@ async function translate (text, form, to) {
     }
   
   });
+
+  app.event('app_home_opened', async ({ event, context, payload }) => {
+    // Display App Home
+    const homeView = await appHome.createHome(event.user);
+    
+    try {
+      const result = await app.client.views.publish({
+        token: slackToken,
+        user_id: event.user,
+        view: homeView
+      });
+      
+    } catch(e) {
+      app.error(e);
+    }
+    
+  });
   
   (async () => {
     // Start the app

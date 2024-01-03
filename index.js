@@ -130,7 +130,7 @@ async function translate (text, form, to) {
     const view = appHome.openModal();
     
     try {
-      const result = await app.client.views.open({
+      const result = await bolt.client.views.open({
         token: slackToken,
         trigger_id: body.trigger_id,
         view: view

@@ -17,6 +17,8 @@ const apiKey = process.env.API_KEY ;
 
 const slackToken = process.env.SLACK_BOT_TOKEN;
 
+const slackUserToken = process.env.SLACK_USER_TOKEN;
+
 const slackClient = new WebClient(slackToken);
 
 const bolt = new App({
@@ -93,7 +95,7 @@ async function translate (text, form, to) {
             const textEn = "Test"
             // const textVi = await translate(mess, 'ja','vi')
             await client.chat.update({ 
-              token: message.user, 
+              token: slackUserToken, 
               ts: message.ts, 
               channel: message.channel, 
               text: `${mess} \n :flag-gb:: ${textEn}`, 

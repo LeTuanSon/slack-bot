@@ -122,6 +122,25 @@ async function translate (text, form, to) {
     }
     
   });
+
+  app.action('add_setting', async ({ body, context, ack }) => {
+    ack();
+    
+    // Open a modal window with forms to be submitted by a user
+    const view = appHome.openModal();
+    
+    try {
+      const result = await app.client.views.open({
+        token: slackToken,
+        trigger_id: body.trigger_id,
+        view: view
+      });
+      
+    } catch(e) {
+      console.log(e);
+      app.error(e);
+    }
+  });
   
   (async () => {
     // Start the app

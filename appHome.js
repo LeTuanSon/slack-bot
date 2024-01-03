@@ -24,6 +24,15 @@ const updateView = async(user) => {
       text: {
         type: "mrkdwn",
         text: "*Welcome!* \nThis is a home for Demo app!"
+      },
+      accessory: {
+        type: "button",
+        action_id: "add_setting", 
+        text: {
+          type: "plain_text",
+          text: "New",
+          emoji: true
+        }
       }
     },
     {
@@ -137,10 +146,10 @@ const updateView = async(user) => {
 
 const createHome = async(user, data) => {
 
-    connection.connect(function(err) {
-        if (err) throw err;
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!Connected");
-    })
+    // connection.connect(function(err) {
+    //     if (err) throw err;
+    //     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!Connected");
+    // })
   if(data) {     
     // Store in a local DB
     // db.push(`/${user}/data[]`, data, true);   

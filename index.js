@@ -141,6 +141,29 @@ async function translate (text, form, to) {
       bolt.error(e);
     }
   });
+
+  bolt.view('modal_view', async ({ ack, body, context, view }) => {
+    ack();
+    
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!Submit");
+
+    const data = {}
+  
+    const homeView = await appHome.createHome(body.user.id, data);
+  
+    try {
+      const result = await bolt.client.apiCall('views.publish', {
+        token: slackToken,
+        user_id: body.user.id,
+        view: homeView
+      });
+  
+    } catch(e) {
+      console.log(e);
+      bolt.error(e);
+    }
+      
+  });
   
   (async () => {
     // Start the app

@@ -189,6 +189,13 @@ const openModal = () => {
         "element": {
           "type": "static_select",
           "action_id": "fromLang",
+          "initial_option": {
+            "text": {
+                "type": "plain_text",
+                "text": "English"
+              },
+              "value": "en"
+          },
           "options": [
             {
               "text": {

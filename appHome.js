@@ -171,71 +171,82 @@ const openModal = () => {
     callback_id: 'modal_view',
     title: {
       type: 'plain_text',
-      text: 'Create a stickie note'
+      text: 'Language Setting'
     },
     submit: {
       type: 'plain_text',
-      text: 'Create'
+      text: 'Save'
     },
     blocks: [
-      // Text input
+      // Dropdown primary language
       {
         "type": "input",
-        "block_id": "note01",
+        "block_id": "lang01",
         "label": {
           "type": "plain_text",
-          "text": "Note"
-        },
-        "element": {
-          "action_id": "content",
-          "type": "plain_text_input",
-          "placeholder": {
-            "type": "plain_text",
-            "text": "Take a note... \n(Text longer than 3000 characters will be truncated!)"
-          },
-          "multiline": true
-        }
-      },
-      
-      // Drop-down menu      
-      {
-        "type": "input",
-        "block_id": "note02",
-        "label": {
-          "type": "plain_text",
-          "text": "Color",
+          "text": "Primary Language",
         },
         "element": {
           "type": "static_select",
-          "action_id": "color",
+          "action_id": "fromLang",
           "options": [
             {
               "text": {
                 "type": "plain_text",
-                "text": "yellow"
+                "text": "English"
               },
-              "value": "yellow"
+              "value": "en"
             },
             {
               "text": {
                 "type": "plain_text",
-                "text": "blue"
+                "text": "Japanese"
               },
-              "value": "blue"
+              "value": "ja"
             },
             {
               "text": {
                 "type": "plain_text",
-                "text": "green"
+                "text": "Vietnamese"
               },
-              "value": "green"
+              "value": "vi"
+            }
+          ]
+        }
+      },
+      
+      // Drop-down secondary language  
+      {
+        "type": "input",
+        "block_id": "lang02",
+        "label": {
+          "type": "plain_text",
+          "text": "Second Language",
+        },
+        "element": {
+          "type": "static_select",
+          "action_id": "toLang",
+          "options": [
+            {
+              "text": {
+                "type": "plain_text",
+                "text": "English"
+              },
+              "value": "en"
             },
             {
               "text": {
                 "type": "plain_text",
-                "text": "pink"
+                "text": "Japanese"
               },
-              "value": "pink"
+              "value": "ja"
+            },
+            {
+              "text": {
+                "type": "plain_text",
+                "text": "Vietnamese"
+              },
+              "value": "vi"
             }
           ]
         }

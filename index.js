@@ -118,12 +118,12 @@ async function translate (text, form, to) {
       });
       
     } catch(e) {
-      app.error(e);
+      bolt.error(e);
     }
     
   });
 
-  app.action('add_setting', async ({ body, context, ack }) => {
+  bolt.action('add_setting', async ({ body, context, ack }) => {
     ack();
     
     // Open a modal window with forms to be submitted by a user
@@ -138,7 +138,7 @@ async function translate (text, form, to) {
       
     } catch(e) {
       console.log(e);
-      app.error(e);
+      bolt.error(e);
     }
   });
   

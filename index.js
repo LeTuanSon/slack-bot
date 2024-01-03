@@ -85,7 +85,6 @@ async function translate (text, form, to) {
   }
 
   bolt.message(async ({ message, client, logger }) => {
-    console.log(`++++++++++++++++++++++++++++++++++++${message.user}`);
     if (message.subtype !== undefined
       || message.subtype !== 'bot_message'
       || message.subtype !== 'file_share'

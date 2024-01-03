@@ -2,10 +2,17 @@
 // const db = new JsonDB('notes', true, false);
 
 const app = require('./index');
-
+var mysql = require('mysql');
 /*
  * Home View - Use Block Kit Builder to compose: https://api.slack.com/tools/block-kit-builder
  */
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "sonlt1234",
+    database: "sakila"
+});
 
 const updateView = async(user) => {
   // Intro message - 
@@ -128,6 +135,11 @@ const updateView = async(user) => {
 /* Display App Home */
 
 const createHome = async(user, data) => {
+
+    connection.connect(function(err) {
+        if (err) throw err;
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!Connected");
+    })
   if(data) {     
     // Store in a local DB
     // db.push(`/${user}/data[]`, data, true);   

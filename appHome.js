@@ -17,6 +17,11 @@ var connection = mysql.createConnection({
 });
 
 var userSettings = [];
+const languageLabel = {
+  "en": "English",
+  "ja": "Japanese",
+  "vi": "Vietnamese"
+};
 
 const updateView = async(user) => {
   // Intro message - 
@@ -170,7 +175,7 @@ const openModal = (index) => {
           initial_option: {
             text: {
                 type: "plain_text",
-                text: data.primaryLang ?? "English"
+                text: languageLabel[data.primaryLang] ?? "English"
               },
               value: data.primaryLang ?? "en"
           },

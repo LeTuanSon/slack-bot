@@ -175,13 +175,13 @@ async function translate (text, form, to) {
     ack();
     console.log(`++++++++++++++++++++++++++++${view.state.values.savedSetting.edit_setting.value}`);
     // Open a modal window with forms to be submitted by a user
-    const view = appHome.openModal(parseInt(body.value));
+    const newView = appHome.openModal(parseInt(body.value));
     
     try {
       const result = await bolt.client.views.open({
         token: slackToken,
         trigger_id: body.trigger_id,
-        view: view
+        view: newView
       });
       
     } catch(e) {

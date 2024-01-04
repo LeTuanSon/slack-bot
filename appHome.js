@@ -71,7 +71,7 @@ const updateView = async(user) => {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `Translate from ${primaryLang}`
+            text: `Translate from ${primaryLang}\nTranslate to ${secondaryLang}`
           },
           accessory: {
             type: "button",
@@ -84,13 +84,13 @@ const updateView = async(user) => {
             value: i.toString()
           }
         },
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: `Translate to ${secondaryLang}`
-          }
-        },
+        // {
+        //   type: "section",
+        //   text: {
+        //     type: "mrkdwn",
+        //     text: `Translate to ${secondaryLang}`
+        //   }
+        // },
         {
           type: "divider"
         }

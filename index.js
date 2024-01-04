@@ -173,7 +173,7 @@ async function translate (text, form, to) {
   
   bolt.action('edit_setting', async ({ body, context, ack }) => {
     ack();
-    console.log(`++++++++++++++++++++++++++++${body.value}`);
+    console.log(`++++++++++++++++++++++++++++${body.state.values.savedSetting.edit_setting.value}`);
     // Open a modal window with forms to be submitted by a user
     const view = appHome.openModal(parseInt(body.value));
     

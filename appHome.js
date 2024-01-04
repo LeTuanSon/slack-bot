@@ -68,6 +68,7 @@ const updateView = async(user) => {
             
       settingBlocks = [
         {
+          block_id: "savedSetting",
           type: "section",
           text: {
             type: "mrkdwn",

@@ -163,7 +163,7 @@ const openModal = (index) => {
     blocks: [
       // Dropdown channel list
       {
-        type: "section",
+        type: "input",
         block_id: "channelSelected",
         label: {
           type: "plain_text",

@@ -161,6 +161,23 @@ const openModal = (index) => {
       text: 'Save'
     },
     blocks: [
+      // Dropdown channel list
+      {
+        type: "section",
+        block_id: "channelSelected",
+        text: {
+          type: "mrkdwn",
+          text: "Pick a conversation from the dropdown list"
+        },
+        accessory: {
+          action_id: "channel_select",
+          type: "conversations_select",
+          placeholder: {
+            type: "plain_text",
+            text: "Select an item"
+          }
+        }
+      },
       // Dropdown primary language
       {
         type: "input",
@@ -216,6 +233,13 @@ const openModal = (index) => {
         element: {
           type: "static_select",
           action_id: "toLang",
+          initial_option: {
+            text: {
+                type: "plain_text",
+                text: languageLabel[data.secondaryLang] ?? "English"
+              },
+              value: data.secondaryLang ?? "en"
+          },
           options: [
             {
               text: {

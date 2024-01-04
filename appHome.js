@@ -48,6 +48,7 @@ const updateView = async(user) => {
 
   try {
     const rawData = db.getData(`/${user}/data/`);
+    console.log(`---------------------------${rawData}`);
     
     userSettings = rawData.slice().reverse(); // Reverse to make the latest first
     userSettings = userSettings.slice(0, 50); // Just display 20. BlockKit display has some limit.

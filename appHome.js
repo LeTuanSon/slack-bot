@@ -165,17 +165,13 @@ const openModal = (index) => {
       {
         type: "section",
         block_id: "channelSelected",
-        text: {
-          type: "mrkdwn",
+        label: {
+          type: "plain_text",
           text: "Pick a conversation from the dropdown list"
         },
-        accessory: {
+        element: {
           action_id: "channel_select",
-          type: "conversations_select",
-          placeholder: {
-            type: "plain_text",
-            text: "Select an item"
-          }
+          type: "conversations_select"
         }
       },
       // Dropdown primary language

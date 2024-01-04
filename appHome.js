@@ -71,7 +71,7 @@ const updateView = async(user) => {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: `Translate from ${primaryLang}\nTranslate to ${secondaryLang}`
+            text: `Translate from ${primaryLang}`
           },
           accessory: {
             type: "button",
@@ -79,18 +79,18 @@ const updateView = async(user) => {
             text: {
               type: "plain_text",
               text: "Edit",
-              emoji: true,
-              value: i.toString()
-            }
+              emoji: true
+            },
+            value: i.toString()
           }
         },
-        // {
-        //   type: "section",
-        //   text: {
-        //     type: "mrkdwn",
-        //     text: `Translate to ${secondaryLang}`
-        //   }
-        // },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `Translate to ${secondaryLang}`
+          }
+        },
         {
           type: "divider"
         }

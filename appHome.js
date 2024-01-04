@@ -133,7 +133,7 @@ const createHome = async(user, data) => {
 
 const openModal = (index) => {
 
-  const data = index >= 0 ? userSettings[index] : {};
+  const data = (index >= 0 && userSettings.length > 0) ? userSettings[index] : {};
   
   const modal = {
     type: 'modal',

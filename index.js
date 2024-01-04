@@ -171,17 +171,17 @@ async function translate (text, form, to) {
       
   });
   
-  bolt.action('edit_setting', async ({ body, context, ack, view }) => {
+  bolt.action('edit_setting', async ({ body, context, ack }) => {
     ack();
-    console.log(`++++++++++++++++++++++++++++${view.state.values.savedSetting.edit_setting.value}`);
+    console.log(`++++++++++++++++++++++++++++${body.actions[0].value}`);
     // Open a modal window with forms to be submitted by a user
-    const newView = appHome.openModal(parseInt(body.value));
+    const view = appHome.openModal(parseInt(body.value));
     
     try {
       const result = await bolt.client.views.open({
         token: slackToken,
         trigger_id: body.trigger_id,
-        view: newView
+        view: view
       });
       
     } catch(e) {

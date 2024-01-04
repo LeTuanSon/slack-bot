@@ -1,5 +1,5 @@
-const JsonDB = require('node-json-db');
-const db = new JsonDB('languages', true, false);
+import { JsonDB, Config } from 'node-json-db';
+const db = new JsonDB(new Config('languages', true, false, '/'));
 
 const app = require('./index');
 var mysql = require('mysql');

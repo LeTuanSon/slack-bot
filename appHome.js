@@ -73,8 +73,7 @@ const updateView = async(user) => {
           text: {
             type: "mrkdwn",
             text: `Translate from ${primaryLang}`
-          },
-          accessory: {}
+          }
         },
         {
           type: "section",

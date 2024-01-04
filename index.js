@@ -85,6 +85,7 @@ async function translate (text, form, to) {
   }
 
   bolt.message(async ({ message, client, logger }) => {
+    console.log(`++++++++++++++++++++++++++++++++${message.user}`);
     if (message.subtype !== undefined
       || message.subtype !== 'bot_message'
       || message.subtype !== 'file_share'
@@ -107,6 +108,7 @@ async function translate (text, form, to) {
   });
 
   bolt.event('app_home_opened', async ({ event, context, payload }) => {
+    console.log(`=====================================${event.user}`);
     // Display App Home
     const homeView = await appHome.createHome(event.user);
     
@@ -125,9 +127,12 @@ async function translate (text, form, to) {
 
   bolt.action('add_setting', async ({ body, context, ack }) => {
     ack();
-    
+    const data = {
+      primaryLang: "",
+      secondaryLang: ""
+    }
     // Open a modal window with forms to be submitted by a user
-    const view = appHome.openModal();
+    const view = appHome.openModal(-1);
     
     try {
       const result = await bolt.client.views.open({
@@ -144,10 +149,13 @@ async function translate (text, form, to) {
 
   bolt.view('modal_view', async ({ ack, body, context, view }) => {
     ack();
-    
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!Submit");
 
-    const data = {}
+    console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${body.user.id}`);
+
+    const data = {
+      primaryLang: view.state.values.lang01.fromLang.selected_option.value,
+      secondaryLang: view.state.values.lang02.toLang.selected_option.value
+    }
   
     const homeView = await appHome.createHome(body.user.id, data);
   

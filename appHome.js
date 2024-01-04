@@ -1,5 +1,5 @@
-// const JsonDB = require('node-json-db');
-// const db = new JsonDB('notes', true, false);
+const JsonDB = require('node-json-db');
+const db = new JsonDB('languages', true, false);
 
 const app = require('./index');
 var mysql = require('mysql');
@@ -14,6 +14,8 @@ var connection = mysql.createConnection({
     password: "sonlt1234",
     database: "sakila"
 });
+
+var userSettings = [];
 
 const updateView = async(user) => {
   // Intro message - 
@@ -36,15 +38,131 @@ const updateView = async(user) => {
       }
     },
     {
+      type: "divider"
+    }
+  ];
+
+  // Append new data blocks after the intro - 
+  
+  userSettings = [];
+
+  try {
+    const rawData = db.getData(`/${user}/data/`);
+    
+    userSettings = rawData.slice().reverse(); // Reverse to make the latest first
+    userSettings = userSettings.slice(0, 50); // Just display 20. BlockKit display has some limit.
+
+  } catch(error) {
+    console.error(error); 
+  };
+  
+  if(userSettings) {
+    let settingBlocks = [];
+    
+    for (const obj of userSettings) {
+      
+      let primaryLang = obj.primaryLang;
+      let secondaryLang = obj.secondaryLang;
+            
+      settingBlocks = [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `Translate from ${primaryLang}`
+          },
+          accessory: {}
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `Translate to ${secondaryLang}`
+          }
+        },
+        {
+          type: "divider"
+        }
+      ];
+      blocks = blocks.concat(settingBlocks);
+    
+    }
+    
+  }
+
+  // The final view -
+  
+  let view = {
+    type: 'home',
+    callback_id: 'home_view',
+    title: {
+      type: 'plain_text',
+      text: 'Setting Languages'
+    },
+    blocks: blocks
+  }
+  
+  return JSON.stringify(view);
+};
+
+
+
+/* Display App Home */
+
+const createHome = async(user, data) => {
+
+    // connection.connect(function(err) {
+    //     if (err) throw err;
+    //     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!Connected");
+    // })
+  if(data) {     
+    // Store in a local DB
+    db.push(`/${user}/data`, data, true);   
+  }
+  
+  const userView = await updateView(user);
+  
+  return userView;
+};
+
+
+
+/* Open a modal */
+
+const openModal = (index) => {
+
+  const data = index >= 0 ? userSettings[index] : {};
+  
+  const modal = {
+    type: 'modal',
+    callback_id: 'modal_view',
+    title: {
+      type: 'plain_text',
+      text: 'Language Setting'
+    },
+    submit: {
+      type: 'plain_text',
+      text: 'Save'
+    },
+    blocks: [
+      // Dropdown primary language
+      {
         type: "input",
-        block_id: "lang",
+        block_id: "lang01",
         label: {
-          "type": "plain_text",
-          "text": "Language",
+          type: "plain_text",
+          text: "Primary Language",
         },
         element: {
           type: "static_select",
-          action_id: "color",
+          action_id: "fromLang",
+          initial_option: {
+            text: {
+                type: "plain_text",
+                text: data.primaryLang ?? "English"
+              },
+              value: data.primaryLang ?? ""
+          },
           options: [
             {
               text: {
@@ -69,191 +187,40 @@ const updateView = async(user) => {
             }
           ]
         }
-    },
-    {
-      type: "divider"
-    }
-  ];
-  
-  
-  // Append new data blocks after the intro - 
-  
-  let newData = [];
-  
-  if(newData) {
-    let noteBlocks = [];
-    
-    for (const o of newData) {
-      
-      const color = (o.color) ? o.color : 'yellow';
-      
-      let note = o.note;
-      if (note.length > 3000) {
-        note = note.substr(0, 2980) + '... _(truncated)_'
-        console.log(note.length);
-      }
-            
-      noteBlocks = [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: note
-          },
-          accessory: {
-            type: "image",
-            image_url: `https://cdn.glitch.com/0d5619da-dfb3-451b-9255-5560cd0da50b%2Fstickie_${color}.png`,
-            alt_text: "stickie note"
-          }
-        },
-        {
-          "type": "context",
-          "elements": [
-            {
-              "type": "mrkdwn",
-              "text": o.timestamp
-            }
-          ]
-        },
-        {
-          type: "divider"
-        }
-      ];
-      blocks = blocks.concat(noteBlocks);
-    
-    }
-    
-  }
-
-  // The final view -
-  
-  let view = {
-    type: 'home',
-    callback_id: 'home_view',
-    title: {
-      type: 'plain_text',
-      text: 'Keep notes!'
-    },
-    blocks: blocks
-  }
-  
-  return JSON.stringify(view);
-};
-
-
-
-/* Display App Home */
-
-const createHome = async(user, data) => {
-
-    // connection.connect(function(err) {
-    //     if (err) throw err;
-    //     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!Connected");
-    // })
-  if(data) {     
-    // Store in a local DB
-    // db.push(`/${user}/data[]`, data, true);   
-  }
-  
-  const userView = await updateView(user);
-  
-  return userView;
-};
-
-
-
-/* Open a modal */
-
-const openModal = () => {
-  
-  const modal = {
-    type: 'modal',
-    callback_id: 'modal_view',
-    title: {
-      type: 'plain_text',
-      text: 'Language Setting'
-    },
-    submit: {
-      type: 'plain_text',
-      text: 'Save'
-    },
-    blocks: [
-      // Dropdown primary language
-      {
-        "type": "input",
-        "block_id": "lang01",
-        "label": {
-          "type": "plain_text",
-          "text": "Primary Language",
-        },
-        "element": {
-          "type": "static_select",
-          "action_id": "fromLang",
-          "initial_option": {
-            "text": {
-                "type": "plain_text",
-                "text": "English"
-              },
-              "value": "en"
-          },
-          "options": [
-            {
-              "text": {
-                "type": "plain_text",
-                "text": "English"
-              },
-              "value": "en"
-            },
-            {
-              "text": {
-                "type": "plain_text",
-                "text": "Japanese"
-              },
-              "value": "ja"
-            },
-            {
-              "text": {
-                "type": "plain_text",
-                "text": "Vietnamese"
-              },
-              "value": "vi"
-            }
-          ]
-        }
       },
       
       // Drop-down secondary language  
       {
-        "type": "input",
-        "block_id": "lang02",
-        "label": {
-          "type": "plain_text",
-          "text": "Second Language",
+        type: "input",
+        block_id: "lang02",
+        label: {
+          type: "plain_text",
+          text: "Second Language",
         },
-        "element": {
-          "type": "static_select",
-          "action_id": "toLang",
-          "options": [
+        element: {
+          type: "static_select",
+          action_id: "toLang",
+          options: [
             {
-              "text": {
-                "type": "plain_text",
-                "text": "English"
+              text: {
+                type: "plain_text",
+                text: "English"
               },
-              "value": "en"
+              value: "en"
             },
             {
-              "text": {
-                "type": "plain_text",
-                "text": "Japanese"
+              text: {
+                type: "plain_text",
+                text: "Japanese"
               },
-              "value": "ja"
+              value: "ja"
             },
             {
-              "text": {
-                "type": "plain_text",
-                "text": "Vietnamese"
+              text: {
+                type: "plain_text",
+                text: "Vietnamese"
               },
-              "value": "vi"
+              value: "vi"
             }
           ]
         }

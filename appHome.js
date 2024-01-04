@@ -47,7 +47,7 @@ const updateView = async(user) => {
   userSettings = [];
 
   try {
-    const rawData = db.getData(`/${user}/data/`);
+    const rawData = await db.getData(`/${user}/data/`);
     console.log(`---------------------------${rawData}`);
     if (Array.isArray(rawData)) {
       userSettings = rawData.slice().reverse(); // Reverse to make the latest first

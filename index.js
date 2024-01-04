@@ -171,7 +171,7 @@ async function translate (text, form, to) {
       
   });
   
-  bolt.action('add_setting', async ({ body, context, ack }) => {
+  bolt.action('edit_setting', async ({ body, context, ack }) => {
     ack();
     console.log(`++++++++++++++++++++++++++++${body.value}`);
     // Open a modal window with forms to be submitted by a user

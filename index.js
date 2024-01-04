@@ -150,8 +150,6 @@ async function translate (text, form, to) {
   bolt.view('modal_view', async ({ ack, body, context, view }) => {
     ack();
 
-    console.log(`!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${body.user.id}`);
-
     const data = {
       primaryLang: view.state.values.lang01.fromLang.selected_option.value,
       secondaryLang: view.state.values.lang02.toLang.selected_option.value

@@ -49,7 +49,6 @@ const updateView = async(user) => {
 
   try {
     const rawData = await db.getData(`/${user}/data/`);
-    console.log(`---------------------------${rawData}`);
     if (Array.isArray(rawData)) {
       userSettings = rawData.slice().reverse(); // Reverse to make the latest first
       userSettings = userSettings.slice(0, 50); // Just display 20. BlockKit display has some limit.
@@ -161,9 +160,9 @@ const openModal = (index) => {
           initial_option: {
             text: {
                 type: "plain_text",
-                text: data.primaryLang ?? "English"
+                text: data.primaryLang ?? "Default"
               },
-              value: data.primaryLang ?? "en"
+              value: data.primaryLang ?? "default"
           },
           options: [
             {

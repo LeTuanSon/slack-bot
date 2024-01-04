@@ -163,7 +163,7 @@ const openModal = (index) => {
                 type: "plain_text",
                 text: data.primaryLang ?? "English"
               },
-              value: data.primaryLang ?? ""
+              value: data.primaryLang ?? "en"
           },
           options: [
             {

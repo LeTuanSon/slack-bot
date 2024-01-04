@@ -61,10 +61,10 @@ const updateView = async(user) => {
   if(userSettings) {
     let settingBlocks = [];
     
-    for (const obj of userSettings) {
+    userSettings.forEach(function(value, i) {
       
-      let primaryLang = obj.primaryLang;
-      let secondaryLang = obj.secondaryLang;
+      let primaryLang = value.primaryLang;
+      let secondaryLang = value.secondaryLang;
             
       settingBlocks = [
         {
@@ -72,6 +72,16 @@ const updateView = async(user) => {
           text: {
             type: "mrkdwn",
             text: `Translate from ${primaryLang}`
+          },
+          accessory: {
+            type: "button",
+            action_id: "edit_setting", 
+            text: {
+              type: "plain_text",
+              text: "Edit",
+              emoji: true,
+              value: i.toString()
+            }
           }
         },
         {
@@ -87,8 +97,7 @@ const updateView = async(user) => {
       ];
       blocks = blocks.concat(settingBlocks);
     
-    }
-    
+    })
   }
 
   // The final view -
@@ -160,9 +169,9 @@ const openModal = (index) => {
           initial_option: {
             text: {
                 type: "plain_text",
-                text: data.primaryLang ?? "Default"
+                text: data.primaryLang ?? "English"
               },
-              value: data.primaryLang ?? "default"
+              value: data.primaryLang ?? "en"
           },
           options: [
             {

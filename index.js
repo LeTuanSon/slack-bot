@@ -171,6 +171,25 @@ async function translate (text, form, to) {
       
   });
   
+  bolt.action('add_setting', async ({ body, context, ack }) => {
+    ack();
+    console.log(`++++++++++++++++++++++++++++${body.value}`);
+    // Open a modal window with forms to be submitted by a user
+    const view = appHome.openModal(parseInt(body.value));
+    
+    try {
+      const result = await bolt.client.views.open({
+        token: slackToken,
+        trigger_id: body.trigger_id,
+        view: view
+      });
+      
+    } catch(e) {
+      console.log(e);
+      bolt.error(e);
+    }
+  });
+
   (async () => {
     // Start the app
     await bolt.start(port);

@@ -1,5 +1,5 @@
-const JsonDB = require('node-json-db');
-const db = JsonDB('notes', true, false);
+const { JsonDB } = require('node-json-db');
+const db = new JsonDB('notes', true, false);
 
 const app = require('./index');
 var mysql = require('mysql');

@@ -175,7 +175,7 @@ async function translate (text, form, to) {
     ack();
     console.log(`++++++++++++++++++++++++++++${body.actions[0].value}`);
     // Open a modal window with forms to be submitted by a user
-    const view = appHome.openModal(parseInt(body.value));
+    const view = appHome.openModal(parseInt(body.actions[0].value));
     
     try {
       const result = await bolt.client.views.open({
